@@ -46,6 +46,8 @@ foreach ($suits as $key=>$suit)
 	}
 }
 
+// Intro();
+
 echo "Shuffling..";
 for ($i=0; $i < 3; $i++) 
 { 
@@ -163,10 +165,14 @@ function comp_turn($hands,$deck)
 	// sleep(5);
 	while (getTotal($hands['Computer'])<= 16) 
 	{
+		echo "Computer takes a hit...It's a ";
+		echo "(".$deck[0].")\n";
 		$hands['Computer'][]=$deck[0];
 		unset($deck[0]);
 		$deck =array_values($deck);
-		// showhands($hands,True); 
+		echo "Computer's score = ";
+		echo getTotal($hands['Computer']).PHP_EOL;	
+		sleep(4);
 	}
 	showhands($hands,True); 
 	echo "Computer's score = ";
@@ -174,7 +180,14 @@ function comp_turn($hands,$deck)
 	echo "Player's score = ";
 	echo getTotal($hands['Player']).PHP_EOL;
 	echo "****************************\n";
-	echo checkwinner(getTotal($hands['Computer']), getTotal($hands['Player'])).PHP_EOL;
+	if (strpos(getTotal($hands['Computer']),'BUSTED')===false)
+	{
+		echo checkwinner(getTotal($hands['Computer']), getTotal($hands['Player'])).PHP_EOL;
+	}
+	else
+	{
+		echo "Computer BUSTED...You won!!\n";
+	}
 	exit(0);
 }
 
@@ -233,11 +246,11 @@ function getTotal($hand)
 function checkwinner($comp_tot, $player_tot)
 {
 
-	if ($player_tot>$comp_tot) 
+	if ($player_tot>$comp_tot && $player_tot<=21) 
 	{
 		return "You won!";
 	}
-	elseif($player_tot<$comp_tot) 
+	elseif($player_tot<$comp_tot && $comp_tot<=21) 
 	{
 		return "Computer won!";
 	}
