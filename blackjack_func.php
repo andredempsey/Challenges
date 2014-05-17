@@ -32,26 +32,32 @@ function getTotal($hand)
 		{
 			$total+=10;
 		}
-		while ($total>21) 
-		{
-			while ($Aces>=1)
+		while ($total>21 && $Aces>=1)
 			{
 				$total-=10;
 				$Aces--;
-				if ($total<=21) 
-				{
-					$Aces=0;
-				}
 			}
-		}
 	}
-	return $total;
+	return ($total<=21)?$total:"$total (BUSTED!)";
 }
 
-$hand = array('A-H', '5-D', 'K-C', 'A-S', 'A-H');
-
+//Test function for bust with ACES in hand
+$hand = array('A-H', '5-D', 'K-C', 'A-S', 'A-H', '4-S');
 echo getTotal($hand);
 echo PHP_EOL;
 
+//Test function for multiple Aces that equal 21
+$hand = array('A-H', '5-D', 'K-C', 'A-S', 'A-H', '2-S');
+echo getTotal($hand);
+echo PHP_EOL;
 
+//Test function for no ACES and less than 21
+$hand = array('8-H', '2-D', '4-C', '3-S', '2-H', '2-S');
+echo getTotal($hand);
+echo PHP_EOL;
+
+//Test function for bust with no ACES in hand
+$hand = array('8-H', '2-D', '4-C', 'K-S', 'J-H', '2-S');
+echo getTotal($hand);
+echo PHP_EOL;
 
