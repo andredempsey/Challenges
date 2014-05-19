@@ -79,12 +79,7 @@ echo "The Player's total is ";
 echo getTotal($hands['Player']);
 echo PHP_EOL;
 
-// echo "The Computer's total is \n";
-// echo getTotal($hands['Computer']);
-
-
 //ask for choices
-
 do 
 {
 	// Show the menu options
@@ -98,7 +93,6 @@ do
     	case 'H':
     		//check if total is greater than 21
     		//call hit function
-    		echo "Hit Function called\n";
     		$temparray=(hitme($deck,$hands));
     		$deck=unserialize($temparray[0]);
     		$hands=unserialize($temparray[1]);
@@ -116,12 +110,12 @@ do
     		echo "That's not a valid play.\n";
     		break;
     }
-
 }
 // Exit when input is (Q)uit
 while ($input != 'Q');
 
 function showhands($hands, $all=false)  //need to refactor to ONLY show hands; call the hit function multiple times for the initial deal
+//$all flag determines if dealer's first card is shown or not
 {
 	//print_r($hands); //delete after debugging
 	foreach ($hands as $hand => $cards) 
@@ -166,13 +160,14 @@ function comp_turn($hands,$deck)
 	while (getTotal($hands['Computer'])<= 16) 
 	{
 		echo "Computer takes a hit...It's a ";
+		sleep(2);
 		echo "(".$deck[0].")\n";
 		$hands['Computer'][]=$deck[0];
 		unset($deck[0]);
 		$deck =array_values($deck);
 		echo "Computer's score = ";
 		echo getTotal($hands['Computer']).PHP_EOL;	
-		sleep(4);
+		sleep(3);
 	}
 	showhands($hands,True); 
 	echo "Computer's score = ";
@@ -193,9 +188,13 @@ function comp_turn($hands,$deck)
 
 function hitme($deck,$hands)
 {
+	echo "Player takes a hit...It's a ";
+	sleep(2);
+	echo "(".$deck[0].")\n";
 	$hands['Player'][]=$deck[0];
 	unset($deck[0]);
 	$deck =array_values($deck);
+	sleep(3);
 	showhands($hands,false); 
 	if (strpos(getTotal($hands['Player']),'BUSTED')!==false) 
 	{
@@ -241,7 +240,6 @@ function getTotal($hand)
 	}
 	return ($total<=21)?$total:"$total (BUSTED!)";
 }
-
 
 function checkwinner($comp_tot, $player_tot)
 {
