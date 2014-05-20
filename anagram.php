@@ -62,3 +62,4 @@ do
 	}
 } 
 while ($match!=true);
+fclose($handle);
