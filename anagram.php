@@ -2,7 +2,7 @@
 
 //Anagrams
 
-$master_array=['pizza','banana','apple','orange','ice cream', 'donuts', 'panda', 'jason', 'chris', 'omar', 'ben', 'thomas', 'michael', 'ryan', 'codeup'];
+$master_array=['pizza','banana','apple','orange','ice cream', 'donuts', 'panda', 'jason', 'chris', 'omar', 'ben', 'thomas', 'michael', 'ryan', 'codeup', 'isaac'];
 
 function pickword($an_array)
 {
