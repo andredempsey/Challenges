@@ -1,8 +1,13 @@
 <?php
 
 //Anagrams
-
-$master_array=['pizza','banana','apple','orange','ice cream', 'donuts', 'panda', 'jason', 'chris', 'omar', 'ben', 'thomas', 'michael', 'ryan', 'codeup', 'isaac'];
+function getFile($filename)
+{
+	$fileSize=fileSize($filename);
+	$handle =fopen($filename, 'r');
+	$wordlist = trim(fread($handle, $fileSize));
+	return explode("\n", $wordlist);
+}
 
 function pickword($an_array)
 {
@@ -34,7 +39,7 @@ function get_input($upper = FALSE)
         return strtolower(trim(fgets(STDIN)));
     }
 }
-
+$master_array=getFile('words.txt');
 $match =False;
 $targetarray =pickword($master_array);
 $targetword =jumble($targetarray[0]);
