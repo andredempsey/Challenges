@@ -6,6 +6,7 @@ function getFile($filename)
 	$fileSize=fileSize($filename);
 	$handle =fopen($filename, 'r');
 	$wordlist = trim(fread($handle, $fileSize));
+	fclose($handle);
 	return explode("\n", $wordlist);
 }
 
@@ -44,7 +45,8 @@ $match =False;
 $targetarray =pickword($master_array);
 $targetword =jumble($targetarray[0]);
 $target_position = ($targetarray[1]);
-
+$tot_guesses=1;
+$guesses_allowed=6;
 do 
 {
 	echo "What is the following word\n";
@@ -54,12 +56,14 @@ do
 	if (array_search(get_input(false), $master_array) == $target_position) 
 	{
 		echo "You are correct!\n";
+		echo "You guessed it in {$tot_guesses} tries.\n";
 		$match=true;
 	}
 	else
 	{
-		echo "Not quite....try again!\n";
+		$tot_guesses++;
+		$guesses_left = $guesses_allowed-$tot_guesses;
+		echo $guesses_left==0?"Game Over!":"You have " . $guesses_left . " left.  Try again.\n";
 	}
 } 
-while ($match!=true);
-fclose($handle);
+while ($match!=true && $tot_guesses <$guesses_allowed);
