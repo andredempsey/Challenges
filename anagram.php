@@ -37,7 +37,7 @@
      }
      else
      {
-         return strtolower(trim(fgets(STDIN)));
+         return ucfirst(trim(fgets(STDIN)));
      }
  }
  $master_array=getFile('words.txt');
@@ -53,7 +53,8 @@
  	echo $targetword;	
  	echo PHP_EOL;
  	echo "Please enter your guess ";
- 	if (array_search(get_input(false), $master_array) == $target_position) 
+ 	// echo "\npssst... the word is $targetarray[0]\n";
+ 	if (array_search(get_input(false), $master_array) == $target_position) //look for guess in array and make sure the position matches
  	{
  		echo "You are correct!\n";
  		echo "You guessed it in {$tot_guesses} tries.\n";
@@ -67,3 +68,7 @@
  	}
  } 
  while ($match!=true && $tot_guesses <$guesses_allowed);
+ if ($match!=true) 
+ {
+ 	echo "\nThe word was $targetarray[0]\n";
+ }
