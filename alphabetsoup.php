@@ -28,17 +28,17 @@ function sort_word($phrase)
 {
 	foreach ($phrase as $key => $word) 
 	{
-		$temp_array = str_split($phrase[$key]);
-		asort($temp_array, SORT_NATURAL|SORT_FLAG_CASE);
+		$temp_array = str_split($word); //split the word into an array by letter
+		asort($temp_array, SORT_NATURAL|SORT_FLAG_CASE); 
 		$phrase[$key] = implode("",$temp_array);
 	}
 	return $phrase;
 }
 //output values
 $orig_phrase = get_input(false);
-echo $orig_phrase . " becomes \n";
+echo $orig_phrase . "\n";
+echo "becomes \n";
 $phrase = explode(" ", $orig_phrase);
-echo "The result is ";
 print_r (implode(" ",(sort_word($phrase))));
 echo PHP_EOL;
 
