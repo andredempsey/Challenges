@@ -1,4 +1,9 @@
 <?php
+//Codeup Challenge 
+//Diceware
+//Date:  28 May 14
+//Name:  Andre Dempsey
+//Codeup Baddies
 
 // Using wordlist containing words indexed by a series of five digit numbers, consisting of the digits 1 - 6. 
 // Roll five dice to generate an index and lookup a unique word on the list. 

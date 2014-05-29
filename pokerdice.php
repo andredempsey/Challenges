@@ -1,5 +1,9 @@
 <?php
-
+//Codeup Challenge 
+//Pokerdice
+//Date:  28 May 14
+//Name:  Andre Dempsey
+//Codeup Baddies
 // function to take user input on STDIN
 // performing stringtoupper if $upper is true
 function getInput($upper = false) 
