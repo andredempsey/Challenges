@@ -42,7 +42,7 @@ function get_input($upper = FALSE)
 
 //function to find character's lines
 
-function find_lines($lines,$char_name)
+function find_lines($lines, &$cued_lines, $char_name)
 {
 	$focus_array=[];
 	foreach ($lines as $key => $value) 
@@ -50,6 +50,9 @@ function find_lines($lines,$char_name)
 			if (strpos(strtoupper($value),$char_name)===0) 
 			{
 				$focus_array[]=$value;
+                $cued_lines[]=($key>0)?$lines[$key-1]:"First line of play";
+                $cued_lines[]=$value;
+                
 			}
 	}
 		return $focus_array;
@@ -61,7 +64,7 @@ function output_script($lines,$char_name)
 {
 	$filepathname="characterlines.txt";
 	//call function to find/extract character's lines
-	$lines = find_lines($lines, $char_name);
+	$lines = find_lines($lines, $cuedlines, $char_name);
 
 	//open file to write character's lines
     $write_handle = fopen($filepathname, "w");
@@ -74,19 +77,29 @@ function output_script($lines,$char_name)
         return $filepathname;
 }
 
-// //function to find/extract cue lines
+// function to write out cue lines
+function output_cued_script($lines)
+{
+	$filepathname="cuedcharacterlines.txt";
 
-// function FunctionName($value='')
-// {
-// 	# code...
-// }
+	//open file to write cued character lines
+    $write_handle = fopen($filepathname, "w");
+    if (is_writable($filepathname))
+    {
+        $new_string=trim(implode("\n------------\n", $lines));
+        fwrite($write_handle, "$new_string");
+        fclose($write_handle);
+    }
+        return $filepathname;
+}
+
 // //function to find/extract stage directions
 
 // function FunctionName($value='')
 // {
 // 	# code...
 // }
-
+$cuedlines=array();
 //ask for play name
 echo "Enter the file name for your play: ";
 $filename = get_input(false);
@@ -103,3 +116,8 @@ echo "Lines for $char_name have been extracted and saved in '";
 echo output_script($lines,$char_name);
 echo "'" . PHP_EOL;
 
+//call function to write out cued character lines
+echo "Lines and cues for $char_name have been extracted and saved in '";
+$focus_array = find_lines($lines,$cuedlines, $char_name);
+echo output_cued_script($cuedlines);
+echo "'" . PHP_EOL;
