@@ -35,7 +35,6 @@ function sort_word($phrase)
 	return $phrase;
 }
 //output values
-echo "Enter a word or phrase to be processed through Alphabet Soup\n";
 $orig_phrase = get_input(false);
 echo $orig_phrase . "\n";
 echo "becomes \n";
